@@ -24,5 +24,5 @@ fi
 fnam=$(basename ${in/.bam/})
 sbatch -A $proj --mail-user=$mail -t 24:00:00 -e $out/$fnam.err -o $out/$fnam.out \
   -J $fnam -p batch -c 20 -n 1 ../more_runners/runBamCoverage.sh $deeptools_sif -b $in -o $out/$fnam.bw --outFileFormat bigwig \
-  --numberOfProcessors 20 --normalizeUsing RPGC --binSize 200
+  --numberOfProcessors 20 --normalizeUsing RPGC --binSize 200 --effectiveGenomeSize 17683410177
 
