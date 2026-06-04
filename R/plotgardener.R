@@ -1,18 +1,21 @@
-library(plotgardener)
-library(txdbmaker)
-
+suppressPackageStartupMessages({
+  library(plotgardener)
+  library(txdbmaker)
+  library(here)
+})
+  
 #' Data
-SPL1_1_signal <- "C:/Users/Teitur/Desktop/DAPseq_Sami/deepTools/bamCoverage_SPL1_1/JZ25141633-SPL1_1-SPL1_1_combined_trimmomatic.filtered.markdup.sorted.bw"
-SPL1_2_signal <- "C:/Users/Teitur/Desktop/DAPseq_Sami/deepTools/bamCoverage_SPL1_2/JZ25141634-SPL1_2-SPL1_2_combined_trimmomatic.filtered.markdup.sorted.bw"
+SPL1_1_signal <- here("data/deepTools/bamCoverage_SPL1_1/JZ25141633-SPL1_1-SPL1_1_combined_trimmomatic.filtered.markdup.sorted.bw")
+SPL1_2_signal <- here("data/deepTools/bamCoverage_SPL1_2/JZ25141634-SPL1_2-SPL1_2_combined_trimmomatic.filtered.markdup.sorted.bw")
 
-SPL1_consensus_peaks <- "C:/Users/Teitur/Desktop/DAPseq_Sami/macs3.consensus_peaks/SPL1/SPL1.consensus_peaks.narrowPeak"
+SPL1_consensus_peaks <- here("data/SPL1.consensus_peaks.narrowPeak")
 
 DAL55_BLAST_HIT.df <- data.frame("chr" = c("PA_chr10", "PA_chr10"),
                                  "start" = c(211031963, 211209482),
                                  "end" = c(211032018 , 211211212))
 
 #' Making a TxDb object for the spruce genome
-fai <- read.table("C:/Users/Teitur/Desktop/DAPseq_Sami/fasta/pabies-2.0_chromosomes_and_unplaced.fa.fai", 
+fai <- read.table(here("data/fasta/pabies-2.0_chromosomes_and_unplaced.fa.fai"), 
                   header = FALSE, 
                   col.names = c("NAME", "LENGTH", "OFFSET", "LINEBASES", "LINEWIDTH"))
 
@@ -22,7 +25,7 @@ chrominfo <- data.frame(
   is_circular = c(rep(FALSE, NROW(fai)))
 )
 
-txdb <- txdbmaker::makeTxDbFromGFF(file = "C:/Users/Teitur/Desktop/DAPseq_Sami/Pabies_annotation/Picab02_230926_at01_longest_no_TE_sorted.only_PASA_PASN.gff3", 
+txdb <- txdbmaker::makeTxDbFromGFF(file = here("data/Pabies_annotation/Picab02_230926_at01_longest_no_TE_sorted.only_PASA_PASN.gff3"), 
                                    format = "gff3", 
                                    organism = "Picea abies", 
                                    chrominfo = chrominfo)
