@@ -18,5 +18,5 @@ fi
 for f in $(find $in -name "*.narrowPeak"); do
         fnam=$(basename ${f/.narrowPeak/})
         sbatch -A $proj -t 1:00:00 --mail-user=$mail -e $out/$fnam.err -o $out/$fnam.out \
-        -J $fnam -p batch -c 18 -n 1 ../more_runners/runBEDToolsIntersect.sh $sif $f $annotation $out/$fnam.annotation_intersect.tsv -wo
+        -J $fnam -p batch -c 18 -n 1 ../more_runners/runBEDToolsIntersect.sh $sif $f $annotation $out/$fnam.annotation_intersect.tsv -wao
 done
